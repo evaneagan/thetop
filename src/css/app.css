@@ -3,7 +3,7 @@
 
 :root{
     --background: #ffffd0;
-    --black: #111118;
+    --text-color: #111118;
     --imdb: #e4160d;
     --metascore: #177a7d;
     --highlight: rgba(0, 0, 0, 0.05);
@@ -14,10 +14,80 @@ body {
     font-family: Space Mono;
     font-size: 18px;
     line-height: 1.5;
-    color: var(--black);
+    color: var(--text-color);
     margin: 40px auto 40px auto;
 
     max-width: 960px;
 
     background-color: var(--background);
+}
+
+header {
+    background-color: var(--background);
+    padding: 24px;
+    border-bottom: 3px solid var(--text-color);
+
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+
+    position:sticky;
+    top: 0;
+}
+
+span {
+    margin: 0 10px 0px 0px;
+}
+
+span.imdb {
+    color: var(--imdb)
+}
+span.metascore {
+    color: var(--metascore)
+}
+
+text {
+    dominant-baseline: middle;
+}
+
+text.title {
+    font-weight: 700;
+}
+
+circle.imdb {
+    fill: var(--imdb);
+}
+
+circle.metascore {
+    fill: var(--metascore);
+}
+
+rect.background {
+    fill: var(--highlight);
+    opacity: 0;
+    transition: opacity .25s;
+}
+
+g.movie:hover rect.background{
+    opacity:1;
+}
+
+g.movie {
+    cursor:pointer; 
+}
+
+path.imdb {
+    fill: none;
+    stroke: var(--imdb);
+    stroke-width: 3px;
+}
+
+path.metascore {
+    fill: none;
+    stroke: var(--metascore);
+    stroke-width: 3px;
+}
+
+path.area {
+    fill: var(--highlight);
 }
