@@ -1,4 +1,4 @@
-let data = [
+export let newdata = [
   {
     "title": "The Shawshank Redemption",
     "year": "1994",

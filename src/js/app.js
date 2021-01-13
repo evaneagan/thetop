@@ -1,4 +1,4 @@
-// import {data} from "./data"
+import {newdata} from "./data"
 import {select, selectAll} from "d3-selection"
 import {scaleLinear, scaleSqrt} from "d3-scale"
 import {line, curveCardinal, area} from "d3-shape"
@@ -12,7 +12,7 @@ import {transition} from "d3-transition"
 const svg = select("svg")
 
 
-data = data.map((d, i) => {
+const data = newdata.map( (d, i) => {
     d.difference = d.imdb - d.metascore
     return d
 })

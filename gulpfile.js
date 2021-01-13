@@ -72,12 +72,7 @@ function fonts(cb){
     cb();
 }
 
-function data(cb){
-    gulp.src('src/data.js')
-    .pipe(gulp.dest('dist'))
 
-    cb();
-}
 
 function scripts(cb){
     gulp.src('src/js/*')
@@ -130,8 +125,7 @@ exports.default = function() {
     watch('src/css/typography.css', runCss);
     watch('src/img/*', images);
     watch('src/fonts/*', fonts);
-    watch('src/data.js', data);
-    watch('src/*.html', parallel(HTML, fonts, images, scripts, data)).on('change', browserSync.reload); 
+    watch('src/*.html', parallel(HTML, fonts, images, scripts)).on('change', browserSync.reload); 
     
 
     
