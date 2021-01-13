@@ -1,4 +1,4 @@
-import {data} from "./data"
+// import {data} from "./data"
 import {select, selectAll} from "d3-selection"
 import {scaleLinear, scaleSqrt} from "d3-scale"
 import {line, curveCardinal, area} from "d3-shape"
@@ -23,7 +23,7 @@ data = data.map((d, i) => {
 
 svg
     .attr("height", 40 * data.length)
-    .attr("width", 960)
+    .attr("width", "100%")
 
 const scoreScale = scaleLinear()
     .domain([0, 100])
@@ -122,6 +122,48 @@ groups
     .attr("r", 8)
     .attr("class", "imdb")
 
+groups
+    .append("text")
+    .attr("x", (d, i) => { 
+        if  (d.difference > 0) {
+            return scoreScale(d.imdb) + 15
+        } else {
+            return scoreScale(d.imdb) - 15
+        }
+    })
+    .attr("y", 22)
+    .text( (d, i) => {return d.imdb })
+    .attr("class", "imdb")
+    .style("text-anchor", (d,i) => {
+        if  (d.difference > 0) {
+            return "start"
+        } else {
+            return "end"
+        }
+    })
+
+
+    groups
+    .append("text")
+    .attr("x", (d, i) => { 
+        if  (d.difference > 0) {
+            return scoreScale(d.metascore) - 15
+        } else {
+            return scoreScale(d.metascore) + 15
+        }
+    })
+    .attr("y", 22)
+    .text( (d, i) => {return d.metascore })
+    .attr("class", "metascore")
+    .style("text-anchor", (d,i) => {
+        if  (d.difference > 0) {
+            return "end"
+        } else {
+            return "start"
+        }
+    })
+    
+
 
 
 
@@ -200,3 +242,84 @@ selectTag.addEventListener("change", function () {
 
 
 
+
+
+const resize = function () {
+    
+    const svgTag = document.querySelector("svg")
+    const svgWidth = svgTag.clientWidth
+
+
+
+    scoreScale
+        .range([420 / 960 * svgWidth - 20, 900 / 960 * svgWidth - 20])
+
+
+    groups
+        .selectAll("circle.metascore")
+        .attr("cx", (d, i) => {return  scoreScale(d.metascore) })
+
+    groups
+        .selectAll("circle.imdb")
+        .attr("cx", (d, i) => {return  scoreScale(d.imdb) })
+
+    groups
+        .selectAll("text.title")
+        .attr("x", (svgWidth >= 960) ? 90 : 70)
+
+
+    groups
+        .selectAll("text.imdb")
+        .attr("x", (d, i) => { 
+            if  (d.difference > 0) {
+                return scoreScale(d.imdb) + 15
+            } else {
+                return scoreScale(d.imdb) - 15
+            }
+        })
+
+    groups
+        .selectAll("text.metascore")
+        .attr("x", (d, i) => { 
+            if  (d.difference > 0) {
+                return scoreScale(d.metascore) - 15
+            } else {
+                return scoreScale(d.metascore) + 15
+            }
+        })
+
+
+    areaData
+    .x0( (d, i) => { return scoreScale(d.imdb) } )
+    .x1( (d, i) => { return scoreScale(d.metascore) } )
+
+    areaPath
+    .attr("d", areaData)
+
+    metascoreLine
+    .x( (d, i) => { return scoreScale(d.metascore) } )
+
+    metascorePath
+    .attr("d", metascoreLine)
+
+    imdbLine
+    .x( (d, i) => { return scoreScale(d.imdb) } )
+
+    imdbPath
+    .attr("d", imdbLine)
+
+
+
+
+
+}
+
+
+// run resize on pageload
+// and if I change the pange width
+
+resize()
+
+window.addEventListener("resize", function () {
+    resize()
+})

@@ -17,7 +17,7 @@ body {
     color: var(--text-color);
     margin: 40px auto 40px auto;
 
-    max-width: 960px;
+    width: 960px;
 
     background-color: var(--background);
 }
@@ -91,3 +91,47 @@ path.metascore {
 path.area {
     fill: var(--highlight);
 }
+
+text.imdb {
+    fill: var(--imdb);
+    font-size: 16px;
+    font-weight: 700;
+}
+
+text.metascore {
+    fill: var(--metascore);
+    font-size: 16px;
+    font-weight: 700;
+}
+
+
+
+
+@media (max-width:1000px) {
+
+
+body {
+
+    font-size: 14px;
+    margin: 24px;
+    width: auto;
+}
+
+
+}
+
+
+
+
+@media (max-width:700px) {
+
+
+    body {
+    
+        font-size: 14px;
+        margin: 12px;
+        width: auto;
+    }
+    
+    
+    }
